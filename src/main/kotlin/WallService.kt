@@ -12,11 +12,11 @@ class WallService {
 
     fun update(post: Post): Boolean {
         val existingPost = posts.find {
-            it.id == add(post).id
+            it.id == post.id
         }
         return if(existingPost != null) {
             val index = posts.indexOf(existingPost)
-            post[index] = post
+            posts[index] = post.copy()
             true
         } else {
             false
