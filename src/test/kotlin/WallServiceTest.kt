@@ -60,7 +60,26 @@ class WallServiceTest {
             Like()
         )
         assertTrue(wallService.update(updatedPost1))
+    }
 
+    @Test
+    fun update2() {
+        val wallService = WallService()
+        val post = Post(
+            1,
+            1,
+            1,
+            1,
+            123456789,
+            "Test post",
+            0,
+            0,
+            false,
+            "",
+            Comment(),
+            Like()
+        )
+        wallService.add(post)
         // Изменяем пост с несуществующим id, ожидаем false
         val updatedPost2 = Post(
             2,
