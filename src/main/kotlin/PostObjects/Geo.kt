@@ -1,0 +1,4 @@
+package PostObjects
+
+class Geo {
+}
