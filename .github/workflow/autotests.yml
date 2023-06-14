@@ -1,0 +1,56 @@
+name: AutoTest_kt-hm_2-2-1
+
+on:
+  push:
+    branches:
+      - main
+      - hm_kt_2-3-1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
+      - name: Set up Kotlin
+        uses: actions/setup-kotlin@v1
+        with:
+          kotlin-version: 1.5.30
+          
+build-and-test-windows:
+    name: Build and Test on Windows
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
+      - name: Set up Kotlin
+        uses: actions/setup-kotlin@v1
+        with:
+          kotlin-version: 1.5.30
+          
+ build-and-test-macos:
+    name: Build and Test on macOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+
+      - name: Set up Kotlin
+        uses: actions/setup-kotlin@v1
+        with:
+          kotlin-version: 1.5.30
