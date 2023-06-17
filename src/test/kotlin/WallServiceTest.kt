@@ -5,144 +5,50 @@ import org.junit.Assert.*
 class WallServiceTest {
 
     @Test
-    fun add() {
+    fun shouldCreateCommentForExistingPost() {
         val wallService = WallService()
-        val attachments: Array<Attachment> = arrayOf(PhotoAttachment(Photo(1,1,"","")))
-        val post = Post(
-            20,
+        val postId = 1
+        val attachment: Attachment = PhotoAttachment(Photo(1,1,"",""))
+        val attachments: Array<Attachment> = arrayOf(attachment)
+        val parrentStackArray = arrayOf(1)
+        val comment = Comment(
             1,
             1,
             1,
-            1,
-            "",
-            1,
-            1,
-            true,
-            Comment(),
-            Like(),
-            Copyright(),
-            Repost(),
-            View(),
-            "",
-            PostSource(),
-            Geo(),
-            1,
-            copyHistory = arrayOf(1),
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
+            "First Post",
             Donut(),
             1,
-            attachments = attachments
+            1,
+            attachments,
+            parrentsStack = parrentStackArray,
+            Thread()
         )
+        val createdComment = wallService.createComment(postId, comment)
 
-        val addedPostResult = wallService.add(post)
-
-        assertEquals(1,addedPostResult.id)
+        assertEquals(comment, createdComment) // Проверяем, что возвращенный комментарий совпадает с созданным
     }
 
-    @Test
-    fun update() {
+    @Test(expected = WallService.PostNotFoundException::class)
+    fun checkException() {
         val wallService = WallService()
-        val attachments: Array<Attachment> = arrayOf(PhotoAttachment(Photo(1,1,"","")))
-        val post = Post(
+        val postId = 1
+        val attachment: Attachment = PhotoAttachment(Photo(1,1,"",""))
+        val attachments: Array<Attachment> = arrayOf(attachment)
+        val parrentStackArray = arrayOf(1)
+        val comment = Comment(
             1,
             1,
             1,
-            1,
-            1,
-            "",
-            1,
-            1,
-            true,
-            Comment(),
-            Like(),
-            Copyright(),
-            Repost(),
-            View(),
-            "",
-            PostSource(),
-            Geo(),
-            1,
-            copyHistory = arrayOf(1),
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
+            "First Post",
             Donut(),
             1,
-            attachments = attachments
+            1,
+            attachments,
+            parrentsStack = parrentStackArray,
+            Thread()
         )
-        wallService.add(post)
-        // Изменяем пост с существующим id, ожидаем true
-        val updatedPost1 = Post(
-            1,
-            1,
-            1,
-            1,
-            1,
-            "",
-            1,
-            1,
-            true,
-            Comment(),
-            Like(),
-            Copyright(),
-            Repost(),
-            View(),
-            "",
-            PostSource(),
-            Geo(),
-            1,
-            copyHistory = arrayOf(1),
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            Donut(),
-            1,
-            attachments = attachments
-        )
-        assertTrue(wallService.update(updatedPost1))
 
-        // Изменяем пост с несуществующим id, ожидаем false
-        val updatedPost2 = Post(
-            2,
-            1,
-            1,
-            1,
-            1,
-            "",
-            1,
-            1,
-            true,
-            Comment(),
-            Like(),
-            Copyright(),
-            Repost(),
-            View(),
-            "",
-            PostSource(),
-            Geo(),
-            1,
-            copyHistory = arrayOf(1),
-            true,
-            true,
-            true,
-            true,
-            true,
-            true,
-            Donut(),
-            1,
-            attachments = attachments
-        )
-        assertFalse(wallService.update(updatedPost2))
+        wallService.createComment(postId, comment) // Вызываем функцию, ожидая выбрасывания исключения
     }
+
 }
