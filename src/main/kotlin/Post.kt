@@ -10,7 +10,7 @@ data class Post(
     var replyOwnerId: Int,
     var replyPostId: Int?,
     var friendsOnly: Boolean,
-    var comments: Comment,
+    var comments: Comment?,
     var likes: Like,
     var copyright: Copyright,
     var reposts: Repost,

@@ -8,6 +8,7 @@ class WallServiceTest {
     fun shouldCreateCommentForExistingPost() {
         val wallService = WallService()
         val postId = 1
+
         val attachment: Attachment = PhotoAttachment(Photo(1,1,"",""))
         val attachments: Array<Attachment> = arrayOf(attachment)
         val parrentStackArray = arrayOf(1)
@@ -23,9 +24,43 @@ class WallServiceTest {
             parrentsStack = parrentStackArray,
             Thread()
         )
+
+        val post = Post(
+            postId,
+            1,
+            1,
+            1,
+            123456789,
+            "Some post text",
+            0,
+            null,
+            false,
+            comment,
+            Like(),
+            Copyright(),
+            Repost(),
+            View(),
+            "post",
+            PostSource(),
+            Geo(),
+            0,
+            emptyArray(),
+            true,
+            true,
+            true,
+            false,
+            false,
+            false,
+            Donut(),
+            0,
+            emptyArray()
+        )
+        wallService.addPost(post)
+
         val createdComment = wallService.createComment(postId, comment)
 
         assertEquals(comment, createdComment) // Проверяем, что возвращенный комментарий совпадает с созданным
+
     }
 
     @Test(expected = WallService.PostNotFoundException::class)
@@ -36,7 +71,7 @@ class WallServiceTest {
         val attachments: Array<Attachment> = arrayOf(attachment)
         val parrentStackArray = arrayOf(1)
         val comment = Comment(
-            1,
+            2,
             1,
             1,
             "First Post",
